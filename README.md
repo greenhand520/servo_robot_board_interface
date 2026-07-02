@@ -1,6 +1,6 @@
-# quadhex_robot_board_interface
+# servo_robot_board_interface
 
-A ROS 2 interface package for communication with the STM32 main control board of the QuadHex robot.
+A ROS 2 interface package for communication with the STM32 main control board of the robot with servo drive.
 
 ## Overview
 
@@ -96,9 +96,9 @@ Modify the board configuration.
 ### C++ (Header-only)
 
 ```cpp
-#include "quadhex_robot_board_interface/ros_msg.hpp"
+#include "servo_robot_board_interface/ros_msg.hpp"
 
-using namespace quadhex_robot_board_interface;
+using namespace servo_robot_board_interface;
 
 // Type aliases
 Config config_msg;
@@ -115,7 +115,7 @@ ChargeStatus parsed = str_to_charge_status("FULL");  // ChargeStatus::FULL
 ### Python
 
 ```python
-from quadhex_robot_board_interface_msg.ros_msg import ChargeStatus
+from servo_robot_board_interface_msg.ros_msg import ChargeStatus
 
 # Enum usage
 status = ChargeStatus.CC
@@ -136,8 +136,8 @@ parsed = ChargeStatus.from_str("full")  # ChargeStatus.FULL
 ## Building
 
 ```bash
-cd ~/quadhex_robot_board_ws
-colcon build --packages-select quadhex_robot_board_interface --cmake-args -Wno-dev 
+cd ~/servo_robot_board_ws
+colcon build --packages-select servo_robot_board_interface --cmake-args -Wno-dev 
 source install/setup.bash
 ```
 
