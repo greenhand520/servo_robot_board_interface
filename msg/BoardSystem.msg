@@ -15,3 +15,4 @@ uint16 usb_error_count     # USB error count
 uint32 frames_sent_total   # Total frames sent
 uint16 pd_request_voltage  # PD handshake voltage (mV)
 uint16 pd_request_current  # PD handshake current (mA)
+string firmware_version    # mcu firmware_version

@@ -1,12 +1,10 @@
 # servo_robot_board_interface
 
-ROS2 接口定义包，用于伺服机器人主板通信。
-
-**[English Version](README_en.md)**
+[English](README_en.md) | 简体中文
 
 ## 概述
 
-本包定义了 PC（ROS2 节点）与 STM32 主板之间的通信接口，包括：
+ROS2 接口定义包，用于上位机与`ServoRobotBoard`通信，包括：
 - **消息（msg）**：上行数据（STM32 → PC）
 - **服务（srv）**：下行操作（PC → STM32）
 
@@ -18,8 +16,8 @@ ROS2 接口定义包，用于伺服机器人主板通信。
 |------|------|----------|
 | `BoardPower` | 电源数据（舵机/电池电压电流） | 20Hz |
 | `BoardThermal` | 温度数据（舵机/5V/MCU/充电/电池） | 5Hz |
-| `BoardSystem` | 系统信息（设备ID/运行时间/CPU/内存） | 1Hz |
-| `BoardEvent` | 事件通知（充电器/风扇/保护标志） | 触发式 |
+| `BoardSystem` | 系统信息（设备ID/运行时间/CPU/内存/固件版本） | 1Hz |
+| `BoardEvent` | 事件通知（状态变更/保护标志/错误标志） | 触发式 |
 | `BoardConfig` | 配置快照（所有配置参数+开关状态） | 事件触发 |
 
 ## 服务类型（下行操作）
@@ -40,6 +38,9 @@ ROS2 接口定义包，用于伺服机器人主板通信。
 /robot/board/system     # 系统信息
 /robot/board/event      # 事件通知
 /robot/board/config     # 配置快照
+/robot/board/log        # 板级日志（rcl_interfaces/Log）
+/robot/board/imu		# IMU数据（sensor_msgs/Imu）
+/robot/board/battery	# 电池数据（sensor_msgs/BatteryState）
 ```
 
 ### 服务
@@ -96,14 +97,22 @@ future = client.call_async(request)
 ### ChargePhase（充电阶段）
 | 值 | 名称 | 说明 |
 |----|------|------|
-| 0 | Unknown | 未知 |
-| 1 | NotCharging | 未充电 |
-| 2 | PreCharge | 预充电 |
-| 3 | Cc | 恒流充电 |
-| 4 | Cv | 恒压充电 |
-| 5 | Full | 充满 |
-| 6 | Husb238Fault | 充电芯片故障 |
-| 7 | Unsupported | 不支持 |
+| 1    | NotCharging        | 未充电         |
+| 2    | PreCharge          | 预充电         |
+| 3    | Cc                 | 恒流充电       |
+| 4    | Cv                 | 恒压充电       |
+| 5    | Full               | 充满           |
+| 6    | PdSinkFault        | PD受电芯片故障 |
+| 7    | UnsupportedCharger | 不支持的充电器 |
+
+### StateChangeFlag（状态变更标志）
+| 位 | 名称 | 说明 |
+|----|------|------|
+| 0 | CHARGER_CONNECT | 充电器 连接/拔出 |
+| 1 | FAN | 风扇 开启/关闭 |
+| 2 | POWER_SERVO | 舵机电源 开启/关闭 |
+| 3 | POWER_5V        | 5V输出 开启/关闭 |
+| 4 | BAT_EXT_OUT | 电池额外输出 开启/关闭 |
 
 ### ProtectionFlag（保护标志）
 | 位 | 名称 | 说明 |

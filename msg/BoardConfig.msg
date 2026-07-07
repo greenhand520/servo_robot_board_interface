@@ -10,7 +10,7 @@ float32 charge_temp_limit      # Charge temp limit (°C)
 float32 charge_stop_voltage    # Charge stop voltage (V)
 float32 charge_stop_percentage # Charge stop percentage (0.0-1.0)
 bool    charge_enable          # Charge enable
-bool    servo_power_on         # Servo power state
+bool    power_servo_on         # Servo power state
 bool    power_5v_on            # 5V power state
 bool    charge_on              # Charge state
 bool    bat_ext_out_on         # Battery extra output state

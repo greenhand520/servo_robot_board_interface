@@ -10,7 +10,6 @@
 #include "servo_robot_board_interface/msg/board_thermal.hpp"
 #include "servo_robot_board_interface/msg/board_system.hpp"
 #include "servo_robot_board_interface/msg/board_event.hpp"
-#include "servo_robot_board_interface/msg/board_log.hpp"
 #include "servo_robot_board_interface/msg/board_config.hpp"
 
 // Service includes
@@ -28,6 +27,8 @@ namespace servo_robot_board_interface {
     inline const std::string TOPIC_BOARD_EVENT = "/robot/board/event";
     inline const std::string TOPIC_BOARD_LOG = "/robot/board/log";
     inline const std::string TOPIC_BOARD_CONFIG = "/robot/board/config";
+    inline const std::string TOPIC_BOARD_IMU = "/robot/board/imu";
+    inline const std::string TOPIC_BOARD_BATTERY_STATE = "/robot/board/battery_state";
 
     // Service names
     inline const std::string SERVICE_QUERY_CONFIG = "/robot/board/query_config";
@@ -40,7 +41,6 @@ namespace servo_robot_board_interface {
     using ThermalMsg = msg::BoardThermal;
     using SystemMsg = msg::BoardSystem;
     using EventMsg = msg::BoardEvent;
-    using LogMsg = msg::BoardLog;
     using ConfigMsg = msg::BoardConfig;
 
     using QueryConfigSrv = srv::BoardQueryConfig;
@@ -50,25 +50,23 @@ namespace servo_robot_board_interface {
 
     // Charge phase enum
     enum class ChargePhase : uint8_t {
-        UNKNOWN = 0,
-        NOT_CHARGING = 1,
-        PRE_CHARGE = 2,
-        CC = 3,
-        CV = 4,
-        FULL = 5,
-        HUSB238_FAULT = 6,
-        UNSUPPORTED = 7
+        NOT_CHARGING = 0,
+        PRE_CHARGE = 1,
+        CC = 2,
+        CV = 3,
+        FULL = 4,
+        PD_SINK_FAULT = 5,
+        UNSUPPORTED_CHARGER = 6
     };
 
     constexpr std::array<const char*, 8> CHARGE_PHASE_NAMES = {
-        "Unknown",
         "NotCharging",
         "PreCharge",
         "Cc",
         "Cv",
         "Full",
-        "Husb238Fault",
-        "Unsupported"
+        "PdSinkFault",
+        "UnsupportedCharger"
     };
 
     inline const char* charge_phase_to_str(ChargePhase phase) {
@@ -106,14 +104,7 @@ namespace servo_robot_board_interface {
         CHARGE_TEMP_LIMIT = 0x26,
         CHARGE_STOP_VOLTAGE = 0x27,
         CHARGE_STOP_CAPACITY = 0x28,
-    };
-
-    // Switch type enum
-    enum class SwitchType : uint8_t {
-        SERVO_POWER = 0x10,
-        FIVE_V_POWER = 0x11,
-        CHARGE = 0x12,
-        BAT_EXT_OUT = 0x13,
+        TX_LOG_LEVEL = 0x29,
     };
 
 }

@@ -1,12 +1,10 @@
 # servo_robot_board_interface
 
-ROS2 interface package for servo robot board communication.
-
-**[中文版](README.md)**
+English | [简体中文](README.md)
 
 ## Overview
 
-This package defines the communication interface between PC (ROS2 nodes) and STM32 board:
+ROS2 interface definition package, used for communication between the host computer and `ServoRobotBoard`. Include:
 - **Messages (msg)**: Uplink data (STM32 → PC)
 - **Services (srv)**: Downlink operations (PC → STM32)
 
@@ -18,8 +16,8 @@ This package defines the communication interface between PC (ROS2 nodes) and STM
 |---------|-------------|-------------|
 | `BoardPower` | Power data (servo/battery voltage, current) | 20Hz |
 | `BoardThermal` | Temperature data (servo, 5V, MCU, charge, battery) | 5Hz |
-| `BoardSystem` | System info (device ID, uptime, CPU, memory) | 1Hz |
-| `BoardEvent` | Event notifications (charger, fan, protection flags) | Triggered |
+| `BoardSystem` | System info (device ID, uptime, CPU, memory, firmware version) | 1Hz |
+| `BoardEvent` | Event notifications (state change, protection flags, error flags) | Triggered |
 | `BoardConfig` | Configuration snapshot with switch states | Event triggered |
 
 ## Service Types (Downlink Operations)
@@ -40,6 +38,9 @@ This package defines the communication interface between PC (ROS2 nodes) and STM
 /robot/board/system     # System information
 /robot/board/event      # Event notifications
 /robot/board/config     # Configuration snapshot
+/robot/board/log        # Board log（rcl_interfaces/Log）
+/robot/board/imu		# IMU（sensor_msgs/Imu）
+/robot/board/battery	# Battery state（sensor_msgs/BatteryState）
 ```
 
 ### Services
@@ -96,14 +97,22 @@ future = client.call_async(request)
 ### ChargePhase
 | Value | Name | Description |
 |-------|------|-------------|
-| 0 | Unknown | Unknown |
-| 1 | NotCharging | Not charging |
-| 2 | PreCharge | Pre-charge |
-| 3 | Cc | Constant Current |
-| 4 | Cv | Constant Voltage |
-| 5 | Full | Full |
-| 6 | Husb238Fault | Charger chip fault |
-| 7 | Unsupported | Unsupported |
+| 0     | NotCharging        | Not charging        |
+| 1     | PreCharge          | Pre-charge          |
+| 2     | Cc                 | Constant Current    |
+| 3     | Cv                 | Constant Voltage    |
+| 4     | Full               | Full                |
+| 5     | PdSinkFault        | pd sink chip fault  |
+| 6     | UnsupportedCharger | Unsupported charger |
+
+### StateChangeFlag
+| Bit | Name | Description |
+|-----|------|-------------|
+| 0 | CHARGER_CONNECT | Charger connected/disconnected |
+| 1 | FAN | Fan on/off |
+| 2 | POWER_SERVO | Servo power on/off |
+| 3 | POWER_5V | 5V output power on/off         |
+| 4 | BAT_EXT_OUT | Battery extra output on/off |
 
 ### ProtectionFlag
 | Bit | Name | Description |

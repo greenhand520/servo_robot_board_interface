@@ -20,6 +20,8 @@ TOPIC_BOARD_SYSTEM = "/robot/board/system"
 TOPIC_BOARD_EVENT = "/robot/board/event"
 TOPIC_BOARD_LOG = "/robot/board/log";
 TOPIC_BOARD_CONFIG = "/robot/board/config"
+TOPIC_BOARD_IMU = "/robot/board/imu";
+TOPIC_BOARD_BATTERY_STATE = "/robot/board/battery_state";
 
 # Service names
 SERVICE_QUERY_CONFIG = "/robot/board/query_config"
@@ -29,14 +31,13 @@ SERVICE_SWITCH = "/robot/board/switch"
 
 
 class ChargePhase(IntEnum):
-    UNKNOWN = 0
-    NOT_CHARGING = 1
-    PRE_CHARGE = 2
-    CC = 3
-    CV = 4
-    FULL = 5
-    HUSB238_FAULT = 6
-    UNSUPPORTED = 7
+    NOT_CHARGING = 0
+    PRE_CHARGE = 1
+    CC = 2
+    CV = 3
+    FULL = 4
+    PD_SINK_FAULT = 5
+    UNSUPPORTED_CHARGER = 6
 
     def __str__(self) -> str:
         return self.name
@@ -46,7 +47,7 @@ class ChargePhase(IntEnum):
         try:
             return ChargePhase[s.upper()]
         except KeyError:
-            return ChargePhase.UNKNOWN
+            return ChargePhase.NOT_CHARGING
 
 
 class ProtectionFlag(IntEnum):
@@ -74,10 +75,6 @@ class ConfigType(IntEnum):
     CHARGE_TEMP_LIMIT = 0x26
     CHARGE_STOP_VOLTAGE = 0x27
     CHARGE_STOP_CAPACITY = 0x28
+    TX_LOG_LEVEL = 0x29
 
 
-class SwitchType(IntEnum):
-    SERVO_POWER = 0x10
-    FIVE_V_POWER = 0x11
-    CHARGE = 0x12
-    BAT_EXT_OUT = 0x13
