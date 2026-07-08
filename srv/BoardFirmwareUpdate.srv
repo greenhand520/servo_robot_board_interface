@@ -1,0 +1,9 @@
+# Send firmware update data to the board
+# The board will write the data to OTA Temp region
+# After all chunks are sent, send Ota command to apply
+
+uint32 offset      # Byte offset in the firmware image
+uint8[] data       # Firmware data chunk
+---
+bool success
+string msg

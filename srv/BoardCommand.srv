@@ -1,0 +1,7 @@
+# Send a one-shot command to the board
+# Commands: Reset(0x01), Shutdown(0x02), Ota(0x03)
+
+uint8 command_type    # CommandType enum value (0x01=Reset, 0x02=Shutdown, 0x03=Ota)
+---
+bool success
+string msg

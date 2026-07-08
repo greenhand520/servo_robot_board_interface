@@ -14,14 +14,17 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
         msg/BoardPower.msg
-        msg/BoardThermal.msg
         msg/BoardSystem.msg
         msg/BoardEvent.msg
         msg/BoardConfig.msg
+        msg/ServoTarget.msg
         srv/BoardQueryConfig.srv
         srv/BoardQueryAllConfig.srv
         srv/BoardWriteConfig.srv
         srv/BoardSwitch.srv
+        srv/ServoForward.srv
+        srv/BoardCommand.srv
+        srv/BoardFirmwareUpdate.srv
         DEPENDENCIES builtin_interfaces std_msgs
 )
 

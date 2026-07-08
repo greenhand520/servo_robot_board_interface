@@ -1,0 +1,6 @@
+# Forward servo command and wait for response
+uint8[] command    # Raw servo command bytes
+---
+bool success
+uint8[] response   # Raw response bytes from servo
+string msg
