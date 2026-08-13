@@ -16,6 +16,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
         msg/BoardPower.msg
         msg/BoardSystem.msg
         msg/BoardEvent.msg
+        msg/BoardLog.msg
         msg/BoardConfig.msg
         msg/ServoTarget.msg
         srv/BoardQueryConfig.srv

@@ -4,6 +4,7 @@ from servo_robot_board_interface.msg import (
     BoardSystem,
     BoardEvent,
     BoardConfig,
+    BoardLog,
     ServoTarget,
 )
 from servo_robot_board_interface.srv import (
@@ -67,8 +68,6 @@ class ProtectionFlag(IntEnum):
 
 
 class ConfigType(IntEnum):
-    RESET = 0x01
-    SHUTDOWN = 0x02
     SWITCH_SERVO_POWER = 0x10
     SWITCH_5V_POWER = 0x11
     SWITCH_CHARGE = 0x12

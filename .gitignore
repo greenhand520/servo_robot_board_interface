@@ -6,5 +6,4 @@ log/
 build_**
 
 .cache/
-.mimocode/
-.claude/
+__pycache__/

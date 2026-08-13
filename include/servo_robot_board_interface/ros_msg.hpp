@@ -6,11 +6,12 @@
 #include <algorithm>
 
 // Message includes
-#include "servo_robot_board_interface/msg/board_power.hpp"
-#include "servo_robot_board_interface/msg/board_thermal.hpp"
-#include "servo_robot_board_interface/msg/board_system.hpp"
-#include "servo_robot_board_interface/msg/board_event.hpp"
 #include "servo_robot_board_interface/msg/board_config.hpp"
+#include "servo_robot_board_interface/msg/board_event.hpp"
+#include "servo_robot_board_interface/msg/board_log.hpp"
+#include "servo_robot_board_interface/msg/board_power.hpp"
+#include "servo_robot_board_interface/msg/board_system.hpp"
+#include "servo_robot_board_interface/msg/servo_target.hpp"
 
 // Service includes
 #include "servo_robot_board_interface/srv/board_query_config.hpp"
@@ -48,6 +49,7 @@ namespace servo_robot_board_interface {
     using EventMsg = msg::BoardEvent;
     using ConfigMsg = msg::BoardConfig;
     using ServoTargetMsg = msg::ServoTarget;
+    using LogMsg = msg::BoardLog;
 
     using QueryConfigSrv = srv::BoardQueryConfig;
     using QueryAllConfigSrv = srv::BoardQueryAllConfig;
@@ -68,7 +70,7 @@ namespace servo_robot_board_interface {
         UNSUPPORTED_CHARGER = 6
     };
 
-    constexpr std::array<const char*, 8> CHARGE_PHASE_NAMES = {
+    constexpr std::array<const char*, 7> CHARGE_PHASE_NAMES = {
         "NotCharging",
         "PreCharge",
         "Cc",

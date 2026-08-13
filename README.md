@@ -6,7 +6,7 @@ ROS2 interface definition package, used for communication between the host compu
 - **Messages (msg)**: Uplink data (STM32 → PC)
 - **Services (srv)**: Downlink operations (PC → STM32)
 
-> Protocol definition: [servo-robot-protocol](https://github.com/greenhand520/servo_robot_board_tools/tree/dev/crates/servo-robot-protocol)
+> Protocol definition: [servo-robot-protocol](https://github.com/greenhand520/servo_robot_board_driver/tree/main/crates/servo-robot-protocol)
 
 ## Message Types (Uplink Data)
 
@@ -16,6 +16,7 @@ ROS2 interface definition package, used for communication between the host compu
 | `BoardSystem` | System info (device ID, uptime, CPU, memory, firmware version, thermal) | 1Hz |
 | `BoardEvent` | Event notifications (state change, protection flags, error flags) | Triggered |
 | `BoardConfig` | Configuration snapshot with switch states | Event triggered |
+| `BoardLog` | Board log (level, file, function, message) | Triggered |
 | `ServoTarget` | Raw servo command bytes to forward to servo bus | On demand |
 
 ## Service Types (Downlink Operations)
@@ -38,9 +39,9 @@ ROS2 interface definition package, used for communication between the host compu
 /robot/board/system         # System info + thermal data
 /robot/board/event          # Event notifications
 /robot/board/config         # Configuration snapshot
-/robot/board/log            # Board log (rcl_interfaces/Log)
+/robot/board/log            # Board log (BoardLog)
 /robot/board/imu            # IMU (sensor_msgs/Imu)
-/robot/board/battery        # Battery state (sensor_msgs/BatteryState)
+/robot/board/battery_state  # Battery state (sensor_msgs/BatteryState)
 /robot/board/servo/target   # Servo raw command (ServoTarget)
 ```
 
@@ -131,8 +132,6 @@ future = client.call_async(request)
 ### ConfigType
 | Value | Name | Unit |
 |-------|------|------|
-| 0x01 | Reset | - |
-| 0x02 | Shutdown | - |
 | 0x10 | SwitchServoPower | bool |
 | 0x11 | Switch5VPower | bool |
 | 0x12 | SwitchCharge | bool |
@@ -146,8 +145,7 @@ future = client.call_async(request)
 | 0x34 | ChargeTempDerating | °C |
 | 0x35 | ChargeTempLimit | °C |
 | 0x36 | ChargeStopVoltageMv | mV |
-| 0x37 | SetServoBaudRate | - |
-| 0x37 | SetServoBaudRate | - |
+| 0x37 | ServoBaudRate | - |
 
 ### SwitchType
 | Value | Name | Description |
