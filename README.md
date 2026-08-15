@@ -65,7 +65,7 @@ using namespace servo_robot_board_interface;
 
 // Subscribe to power data
 auto sub = node->create_subscription<PowerMsg>(
-    TOPIC_BOARD_POWER, 10,
+    topic_board_power(), 10,
     [](const PowerMsg::SharedPtr msg) {
         RCLCPP_INFO(node->get_logger(), "Voltage: %u mV", msg->servo_voltage_mv);
     });
