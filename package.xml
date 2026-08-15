@@ -4,7 +4,7 @@
   <name>servo_robot_board_interface</name>
   <version>0.1.0</version>
   <description>ROS2 interface definitions for servo robot board communication</description>
-  <maintainer email="greenhand520@example.com">greenhand520</maintainer>
+  <maintainer email="ohmdmbct@gmail.com">greenhand520</maintainer>
   <license>GPL-3.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
