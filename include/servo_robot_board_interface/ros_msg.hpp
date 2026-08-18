@@ -13,14 +13,16 @@
 #include "servo_robot_board_interface/msg/board_system.hpp"
 #include "servo_robot_board_interface/msg/servo_target.hpp"
 
-// kPrivateSrv includes
+// Service includes
 #include "servo_robot_board_interface/srv/board_command.hpp"
-#include "servo_robot_board_interface/srv/board_firmware_update.hpp"
 #include "servo_robot_board_interface/srv/board_query_all_config.hpp"
 #include "servo_robot_board_interface/srv/board_query_config.hpp"
 #include "servo_robot_board_interface/srv/board_switch.hpp"
 #include "servo_robot_board_interface/srv/board_write_config.hpp"
 #include "servo_robot_board_interface/srv/servo_forward.hpp"
+
+// Action includes
+#include "servo_robot_board_interface/action/board_firmware_update.hpp"
 
 namespace servo_robot_board_interface {
 
@@ -97,7 +99,9 @@ namespace servo_robot_board_interface {
     inline constexpr std::string_view kPrivateSrvSwitch = "~/robot/board/switch";
     inline constexpr std::string_view kPrivateSrvServoForward = "~/robot/board/servo/forward";
     inline constexpr std::string_view kPrivateSrvServoCommand = "~/robot/board/command";
-    inline constexpr std::string_view kPrivateSrvServoFirmwareUpdate = "~/robot/board/firmware_update";
+
+    // kPrivateAction names
+    inline constexpr std::string_view kPrivateActionFirmwareUpdate = "~/robot/board/firmware_update";
 
     // Topic functions
     [[nodiscard]] inline std::string
@@ -171,8 +175,9 @@ namespace servo_robot_board_interface {
         return detail::endpoint_name(node_fqn, "robot/board/command");
     }
 
+    // Action functions
     [[nodiscard]] inline std::string
-    srv_servo_firmware_update(const std::string_view node_fqn = detail::nodeName) {
+    action_firmware_update(const std::string_view node_fqn = detail::nodeName) {
         return detail::endpoint_name(node_fqn, "robot/board/firmware_update");
     }
 
@@ -189,7 +194,7 @@ namespace servo_robot_board_interface {
     using SrvWriteConfig = srv::BoardWriteConfig;
     using SrvSwitch = srv::BoardSwitch;
     using SrvCommand = srv::BoardCommand;
-    using SrvFirmwareUpdate = srv::BoardFirmwareUpdate;
+    using ActionFirmwareUpdate = action::BoardFirmwareUpdate;
     using SrvServoForward = srv::ServoForward;
 
     // Config type enum

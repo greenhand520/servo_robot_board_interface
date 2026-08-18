@@ -28,7 +28,7 @@ ROS2 interface definition package, used for communication between the host compu
 | `BoardWriteConfig` | Write configuration parameter |
 | `BoardSwitch` | Switch operations (servo power, 5V, charge, battery extra output) |
 | `BoardCommand` | One-shot board commands (Reset, Shutdown, OTA) |
-| `BoardFirmwareUpdate` | Send firmware update data chunks for OTA |
+| `BoardFirmwareUpdate` (Action) | Send firmware update data chunks for OTA with progress feedback |
 | `ServoForward` | Forward raw servo command and wait for response |
 
 ## Topic and Service Names
@@ -52,8 +52,12 @@ ROS2 interface definition package, used for communication between the host compu
 /robot/board/write_config       # Write config
 /robot/board/switch             # Switch operations
 /robot/board/command            # One-shot commands (Reset/Shutdown/OTA)
-/robot/board/firmware_update    # Firmware OTA data upload
 /robot/board/servo/forward      # Forward servo command and get response
+```
+
+### Actions
+```
+/robot/board/firmware_update    # Firmware OTA data upload (with progress feedback)
 ```
 
 ## C++ Usage Example

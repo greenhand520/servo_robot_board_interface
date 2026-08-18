@@ -87,7 +87,7 @@ PRIVATE_SRV_WRITE_CONFIG: Final[str] = "~/robot/board/write_config"
 PRIVATE_SRV_SWITCH: Final[str] = "~/robot/board/switch"
 PRIVATE_SRV_SERVO_FORWARD: Final[str] = "~/robot/board/servo/forward"
 PRIVATE_SRV_SERVO_COMMAND: Final[str] = "~/robot/board/command"
-PRIVATE_SRV_SERVO_FIRMWARE_UPDATE: Final[str] = "~/robot/board/firmware_update"
+PRIVATE_ACTION_FIRMWARE_UPDATE: Final[str] = "~/robot/board/firmware_update"
 
 
 # Topic函数
@@ -162,8 +162,8 @@ def srv_servo_command(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/command")
 
 
-def srv_servo_firmware_update(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Firmware Update服务名称"""
+def action_firmware_update(node_fqn: str = Detail.NODE_NAME) -> str:
+    """获取Firmware Update Action名称"""
     return Detail.endpoint_name(node_fqn, "robot/board/firmware_update")
 
 

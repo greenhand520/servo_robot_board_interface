@@ -2,8 +2,13 @@
 # The board will write the data to OTA Temp region
 # After all chunks are sent, send Ota command to apply
 
+# Goal
 uint32 offset      # Byte offset in the firmware image
 uint8[] data       # Firmware data chunk
 ---
+# Result
 bool success
 string msg
+---
+# Feedback
+float32 progress   # 0.0 ~ 1.0 写入进度

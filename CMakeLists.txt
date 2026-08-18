@@ -25,7 +25,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
         srv/BoardSwitch.srv
         srv/ServoForward.srv
         srv/BoardCommand.srv
-        srv/BoardFirmwareUpdate.srv
+        action/BoardFirmwareUpdate.action
         DEPENDENCIES builtin_interfaces std_msgs
 )
 
