@@ -1,6 +1,6 @@
 # servo_robot_board_interface
 
-[English](./README_en.md)
+[English](README_en.md) | 简体中文
 
 ROS2 接口定义包，用于上位机与 `ServoRobotBoard` 之间的通信。
 

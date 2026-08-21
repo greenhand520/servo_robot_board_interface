@@ -1,6 +1,6 @@
 # servo_robot_board_interface
 
-[中文](./README.md)
+English | [简体中文](README.md)
 
 ROS2 interface definition package for communication between host PC and `ServoRobotBoard`.
 
