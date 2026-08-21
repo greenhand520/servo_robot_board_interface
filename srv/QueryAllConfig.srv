@@ -1,0 +1,5 @@
+# 查询所有配置
+---
+bool success
+string msg
+servo_robot_board_interface/Config config

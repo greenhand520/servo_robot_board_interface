@@ -13,19 +13,25 @@ find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-        msg/BoardPower.msg
-        msg/BoardSystem.msg
-        msg/BoardEvent.msg
-        msg/BoardLog.msg
-        msg/BoardConfig.msg
+        msg/Power.msg
+        msg/DeviceInfo.msg
+        msg/Diagnostic.msg
+        msg/Event.msg
+        msg/Log.msg
+        msg/Config.msg
+        msg/Response.msg
         msg/ServoTarget.msg
-        srv/BoardQueryConfig.srv
-        srv/BoardQueryAllConfig.srv
-        srv/BoardWriteConfig.srv
-        srv/BoardSwitch.srv
+        msg/ConfigType.msg
+        msg/RequestType.msg
+        srv/QueryConfig.srv
+        srv/QueryAllConfig.srv
+        srv/QueryDeviceInfo.srv
+        srv/WriteConfig.srv
+        srv/WriteConfigSwitch.srv
         srv/ServoForward.srv
-        srv/BoardCommand.srv
-        action/BoardFirmwareUpdate.action
+        srv/SendCommand.srv
+        srv/SendRequest.srv
+        action/FirmwareUpdate.action
         DEPENDENCIES builtin_interfaces std_msgs
 )
 

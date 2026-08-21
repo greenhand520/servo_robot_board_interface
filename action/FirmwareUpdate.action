@@ -1,6 +1,5 @@
-# Send firmware update data to the board
-# The board will write the data to OTA Temp region
-# After all chunks are sent, send Ota command to apply
+# 向开发板发送固件更新数据，开发板会将数据写入 OTA Temp 区域
+# 所有 chunk 发送完毕后，发送 OTA 命令进行应用
 
 # Goal
 uint32 offset      # Byte offset in the firmware image

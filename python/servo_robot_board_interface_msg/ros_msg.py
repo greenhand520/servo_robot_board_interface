@@ -1,4 +1,5 @@
 import re
+from enum import IntEnum
 from typing import Optional, Final
 from dataclasses import dataclass
 
@@ -70,136 +71,111 @@ def require_device_id(device_id: str) -> None:
         )
 
 
-# Topic名称常量
-PRIVATE_TOPIC_BOARD_POWER: Final[str] = "~/robot/board/power"
-PRIVATE_TOPIC_BOARD_SYSTEM: Final[str] = "~/robot/board/system"
-PRIVATE_TOPIC_BOARD_EVENT: Final[str] = "~/robot/board/event"
-PRIVATE_TOPIC_BOARD_LOG: Final[str] = "~/robot/board/log"
-PRIVATE_TOPIC_BOARD_CONFIG: Final[str] = "~/robot/board/config"
-PRIVATE_TOPIC_BOARD_IMU: Final[str] = "~/robot/board/imu"
-PRIVATE_TOPIC_BOARD_BATTERY_STATE: Final[str] = "~/robot/board/battery_state"
-PRIVATE_TOPIC_BOARD_SERVO_TARGET: Final[str] = "~/robot/board/servo/target"
+# Topic 路径
+K_PRIVATE_TOPIC_POWER: str = "~/robot/board/power"
+K_PRIVATE_TOPIC_DIAGNOSTIC: str = "~/robot/board/diagnostic"
+K_PRIVATE_TOPIC_EVENT: str = "~/robot/board/event"
+K_PRIVATE_TOPIC_LOG: str = "~/robot/board/log"
+K_PRIVATE_TOPIC_CONFIG: str = "~/robot/board/config"
+K_PRIVATE_TOPIC_IMU: str = "~/robot/board/imu"
+K_PRIVATE_TOPIC_BATTERY_STATE: str = "~/robot/board/battery_state"
+K_PRIVATE_TOPIC_SERVO_TARGET: str = "~/robot/board/servo/target"
 
-# Service名称常量
-PRIVATE_SRV_QUERY_CONFIG: Final[str] = "~/robot/board/query_config"
-PRIVATE_SRV_QUERY_ALL_CONFIG: Final[str] = "~/robot/board/query_all_config"
-PRIVATE_SRV_WRITE_CONFIG: Final[str] = "~/robot/board/write_config"
-PRIVATE_SRV_SWITCH: Final[str] = "~/robot/board/switch"
-PRIVATE_SRV_SERVO_FORWARD: Final[str] = "~/robot/board/servo/forward"
-PRIVATE_SRV_SERVO_COMMAND: Final[str] = "~/robot/board/command"
-PRIVATE_ACTION_FIRMWARE_UPDATE: Final[str] = "~/robot/board/firmware_update"
+# Service 路径
+K_PRIVATE_SRV_REQUEST: str = "~/robot/board/request"
+K_PRIVATE_SRV_QUERY_CONFIG: str = "~/robot/board/query/config"
+K_PRIVATE_SRV_QUERY_ALL_CONFIG: str = "~/robot/board/query/all_config"
+K_PRIVATE_SRV_WRITE_CONFIG: str = "~/robot/board/write/config"
+K_PRIVATE_SRV_SWITCH: str = "~/robot/board/write/config_switch"
+K_PRIVATE_SRV_SERVO_FORWARD: str = "~/robot/board/servo/forward"
+K_PRIVATE_SRV_SERVO_COMMAND: str = "~/robot/board/command"
+
+# Action 路径
+K_PRIVATE_ACTION_FIRMWARE_UPDATE: str = "~/robot/board/firmware_update"
 
 
-# Topic函数
-def topic_board_power(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Power主题名称"""
+
+# ═══ Topic endpoint 函数 ═══
+
+def topic_power(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/power")
 
 
-def topic_board_system(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board System主题名称"""
-    return Detail.endpoint_name(node_fqn, "robot/board/system")
+def topic_diagnostic(node_fqn: str = Detail.NODE_NAME) -> str:
+    return Detail.endpoint_name(node_fqn, "robot/board/diagnostic")
 
 
-def topic_board_event(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Event主题名称"""
+def topic_event(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/event")
 
 
-def topic_board_log(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Log主题名称"""
+def topic_log(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/log")
 
 
-def topic_board_config(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Config主题名称"""
+def topic_config(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/config")
 
 
-def topic_board_imu(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board IMU主题名称"""
+def topic_imu(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/imu")
 
 
-def topic_board_battery_state(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Battery State主题名称"""
+def topic_battery_state(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/battery_state")
 
 
-def topic_board_servo_target(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Board Servo Target主题名称"""
+def topic_servo_target(node_fqn: str = Detail.NODE_NAME) -> str:
     return Detail.endpoint_name(node_fqn, "robot/board/servo/target")
 
 
-# Service函数
+# ═══ Service endpoint 函数 ═══
+
 def srv_query_config(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Query Config服务名称"""
-    return Detail.endpoint_name(node_fqn, "robot/board/query_config")
+    return Detail.endpoint_name(node_fqn, "robot/board/query/config")
 
 
 def srv_query_all_config(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Query All Config服务名称"""
-    return Detail.endpoint_name(node_fqn, "robot/board/query_all_config")
+    return Detail.endpoint_name(node_fqn, "robot/board/query/all_config")
 
 
 def srv_write_config(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Write Config服务名称"""
-    return Detail.endpoint_name(node_fqn, "robot/board/write_config")
+    return Detail.endpoint_name(node_fqn, "robot/board/write/config")
 
 
 def srv_switch(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Switch服务名称"""
-    return Detail.endpoint_name(node_fqn, "robot/board/switch")
+    return Detail.endpoint_name(node_fqn, "robot/board/write/config_switch")
 
 
 def srv_servo_forward(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Servo Forward服务名称"""
     return Detail.endpoint_name(node_fqn, "robot/board/servo/forward")
 
 
 def srv_servo_command(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Servo Command服务名称"""
     return Detail.endpoint_name(node_fqn, "robot/board/command")
 
 
+def srv_query_device_info(node_fqn: str = Detail.NODE_NAME) -> str:
+    return Detail.endpoint_name(node_fqn, "robot/board/device_info")
+
+
+def srv_request(node_fqn: str = Detail.NODE_NAME) -> str:
+    return Detail.endpoint_name(node_fqn, "robot/board/request")
+
+
+# ═══ Action endpoint 函数 ═══
+
 def action_firmware_update(node_fqn: str = Detail.NODE_NAME) -> str:
-    """获取Firmware Update Action名称"""
     return Detail.endpoint_name(node_fqn, "robot/board/firmware_update")
-
-
-class ConfigType(IntEnum):
-    SWITCH_SERVO_POWER = 0x10
-    SWITCH_5V_POWER = 0x11
-    SWITCH_CHARGE = 0x12
-    SWITCH_BAT_EXT_OUT = 0x13
-    CHARGE_STOP_SOC = 0x20
-    TX_LOG_LEVEL = 0x21
-    POWER_SERVO_CURRENT_LIMIT_MA = 0x30
-    POWER_SERVO_TEMP_LIMIT = 0x31
-    POWER_5V_TEMP_LIMIT = 0x32
-    CHARGE_MAX_CURRENTMA = 0x33
-    CHARGE_TEMP_DERATING = 0x34
-    CHARGE_TEMP_LIMIT = 0x35
-    CHARGE_STOP_VOLTAGE_MV = 0x36
-    SERVO_BAUD_RATE = 0x37
-
-
-class CommandType(IntEnum):
-    RESET = 0x01
-    SHUTDOWN = 0x02
-    OTA = 0x03
-
-    def __str__(self) -> str:
-        return self.name
 
 
 # 使用示例
 if __name__ == "__main__":
     # 获取主题名称
-    print(topic_board_power())
+    print(topic_power())
 
     # 使用自定义节点名
-    print(topic_board_event("custom_node"))
+    print(topic_event("custom_node"))
 
     # 获取服务名称
     print(srv_query_config())

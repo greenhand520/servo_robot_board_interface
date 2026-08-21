@@ -6,23 +6,29 @@
 #include <string_view>
 
 // Message includes
-#include "servo_robot_board_interface/msg/board_config.hpp"
-#include "servo_robot_board_interface/msg/board_event.hpp"
-#include "servo_robot_board_interface/msg/board_log.hpp"
-#include "servo_robot_board_interface/msg/board_power.hpp"
-#include "servo_robot_board_interface/msg/board_system.hpp"
+#include "servo_robot_board_interface/msg/config.hpp"
+#include "servo_robot_board_interface/msg/device_info.hpp"
+#include "servo_robot_board_interface/msg/diagnostic.hpp"
+#include "servo_robot_board_interface/msg/event.hpp"
+#include "servo_robot_board_interface/msg/log.hpp"
+#include "servo_robot_board_interface/msg/power.hpp"
+#include "servo_robot_board_interface/msg/response.hpp"
 #include "servo_robot_board_interface/msg/servo_target.hpp"
+#include "servo_robot_board_interface/msg/config_type.hpp"
+#include "servo_robot_board_interface/msg/request_type.hpp"
 
 // Service includes
-#include "servo_robot_board_interface/srv/board_command.hpp"
-#include "servo_robot_board_interface/srv/board_query_all_config.hpp"
-#include "servo_robot_board_interface/srv/board_query_config.hpp"
-#include "servo_robot_board_interface/srv/board_switch.hpp"
-#include "servo_robot_board_interface/srv/board_write_config.hpp"
+#include "servo_robot_board_interface/srv/send_command.hpp"
+#include "servo_robot_board_interface/srv/query_all_config.hpp"
+#include "servo_robot_board_interface/srv/query_config.hpp"
+#include "servo_robot_board_interface/srv/query_device_info.hpp"
+#include "servo_robot_board_interface/srv/send_request.hpp"
+#include "servo_robot_board_interface/srv/write_config_switch.hpp"
+#include "servo_robot_board_interface/srv/write_config.hpp"
 #include "servo_robot_board_interface/srv/servo_forward.hpp"
 
 // Action includes
-#include "servo_robot_board_interface/action/board_firmware_update.hpp"
+#include "servo_robot_board_interface/action/firmware_update.hpp"
 
 namespace servo_robot_board_interface {
 
@@ -83,20 +89,21 @@ namespace servo_robot_board_interface {
     }
 
     // kPrivateTopic names
-    inline constexpr std::string_view kPrivateTopicBoardPower = "~/robot/board/power";
-    inline constexpr std::string_view kPrivateTopicBoardSystem = "~/robot/board/system";
-    inline constexpr std::string_view kPrivateTopicBoardEvent = "~/robot/board/event";
-    inline constexpr std::string_view kPrivateTopicBoardLog = "~/robot/board/log";
-    inline constexpr std::string_view kPrivateTopicBoardConfig = "~/robot/board/config";
-    inline constexpr std::string_view kPrivateTopicBoardImu = "~/robot/board/imu";
-    inline constexpr std::string_view kPrivateTopicBoardBatteryState = "~/robot/board/battery_state";
-    inline constexpr std::string_view kPrivateTopicBoardServoTarget = "~/robot/board/servo/target";
+    inline constexpr std::string_view kPrivateTopicPower = "~/robot/board/power";
+    inline constexpr std::string_view kPrivateTopicDiagnostic = "~/robot/board/diagnostic";
+    inline constexpr std::string_view kPrivateTopicEvent = "~/robot/board/event";
+    inline constexpr std::string_view kPrivateTopicLog = "~/robot/board/log";
+    inline constexpr std::string_view kPrivateTopicConfig = "~/robot/board/config";
+    inline constexpr std::string_view kPrivateTopicImu = "~/robot/board/imu";
+    inline constexpr std::string_view kPrivateTopicBatteryState = "~/robot/board/battery_state";
+    inline constexpr std::string_view kPrivateTopicServoTarget = "~/robot/board/servo/target";
 
     // kPrivateSrv names
-    inline constexpr std::string_view kPrivateSrvQueryConfig = "~/robot/board/query_config";
-    inline constexpr std::string_view kPrivateSrvQueryAllConfig = "~/robot/board/query_all_config";
-    inline constexpr std::string_view kPrivateSrvWriteConfig = "~/robot/board/write_config";
-    inline constexpr std::string_view kPrivateSrvSwitch = "~/robot/board/switch";
+    inline constexpr std::string_view kPrivateSrvRequest = "~/robot/board/request";
+    inline constexpr std::string_view kPrivateSrvQueryConfig = "~/robot/board/query/config";
+    inline constexpr std::string_view kPrivateSrvQueryAllConfig = "~/robot/board/query/all_config";
+    inline constexpr std::string_view kPrivateSrvWriteConfig = "~/robot/board/write/config";
+    inline constexpr std::string_view kPrivateSrvSwitch = "~/robot/board/write/config_switch";
     inline constexpr std::string_view kPrivateSrvServoForward = "~/robot/board/servo/forward";
     inline constexpr std::string_view kPrivateSrvServoCommand = "~/robot/board/command";
 
@@ -110,8 +117,8 @@ namespace servo_robot_board_interface {
     }
 
     [[nodiscard]] inline std::string
-    topic_board_system(const std::string_view node_fqn = detail::nodeName) {
-        return detail::endpoint_name(node_fqn, "robot/board/system");
+    topic_board_diagnostic(const std::string_view node_fqn = detail::nodeName) {
+        return detail::endpoint_name(node_fqn, "robot/board/diagnostic");
     }
 
     [[nodiscard]] inline std::string
@@ -147,22 +154,22 @@ namespace servo_robot_board_interface {
     // Service functions
     [[nodiscard]] inline std::string
     srv_query_config(const std::string_view node_fqn = detail::nodeName) {
-        return detail::endpoint_name(node_fqn, "robot/board/query_config");
+        return detail::endpoint_name(node_fqn, "robot/board/query/config");
     }
 
     [[nodiscard]] inline std::string
     srv_query_all_config(const std::string_view node_fqn = detail::nodeName) {
-        return detail::endpoint_name(node_fqn, "robot/board/query_all_config");
+        return detail::endpoint_name(node_fqn, "robot/board/query/all_config");
     }
 
     [[nodiscard]] inline std::string
     srv_write_config(const std::string_view node_fqn = detail::nodeName) {
-        return detail::endpoint_name(node_fqn, "robot/board/write_config");
+        return detail::endpoint_name(node_fqn, "robot/board/write/config");
     }
 
     [[nodiscard]] inline std::string
     srv_switch(const std::string_view node_fqn = detail::nodeName) {
-        return detail::endpoint_name(node_fqn, "robot/board/switch");
+        return detail::endpoint_name(node_fqn, "robot/board/write/config_switch");
     }
 
     [[nodiscard]] inline std::string
@@ -175,6 +182,16 @@ namespace servo_robot_board_interface {
         return detail::endpoint_name(node_fqn, "robot/board/command");
     }
 
+    [[nodiscard]] inline std::string
+    srv_query_device_info(const std::string_view node_fqn = detail::nodeName) {
+        return detail::endpoint_name(node_fqn, "robot/board/device_info");
+    }
+
+    [[nodiscard]] inline std::string
+    srv_request(const std::string_view node_fqn = detail::nodeName) {
+        return detail::endpoint_name(node_fqn, "robot/board/request");
+    }
+
     // Action functions
     [[nodiscard]] inline std::string
     action_firmware_update(const std::string_view node_fqn = detail::nodeName) {
@@ -182,44 +199,23 @@ namespace servo_robot_board_interface {
     }
 
     // Type aliases
-    using MsgPower = msg::BoardPower;
-    using MsgSystem = msg::BoardSystem;
-    using MsgEvent = msg::BoardEvent;
-    using MsgConfig = msg::BoardConfig;
+    using MsgPower = msg::Power;
+    using MsgDevice = msg::DeviceInfo;
+    using MsgDiagnostic = msg::Diagnostic;
+    using MsgEvent = msg::Event;
+    using MsgConfig = msg::Config;
+    using MsgResponse = msg::Response;
     using MsgServoTarget = msg::ServoTarget;
-    using MsgLog = msg::BoardLog;
+    using MsgLog = msg::Log;
 
-    using SrvQueryConfig = srv::BoardQueryConfig;
-    using SrvQueryAllConfig = srv::BoardQueryAllConfig;
-    using SrvWriteConfig = srv::BoardWriteConfig;
-    using SrvSwitch = srv::BoardSwitch;
-    using SrvCommand = srv::BoardCommand;
-    using ActionFirmwareUpdate = action::BoardFirmwareUpdate;
+    using SrvQueryConfig = srv::QueryConfig;
+    using SrvQueryAllConfig = srv::QueryAllConfig;
+    using SrvWriteConfig = srv::WriteConfig;
+    using SrvWriteConfigSwitch = srv::WriteConfigSwitch;
+    using SrvQueryDeviceInfo = srv::QueryDeviceInfo;
+    using SrvSendCommand = srv::SendCommand;
+    using SrvSendRequest = srv::SendRequest;
+    using ActionFirmwareUpdate = action::FirmwareUpdate;
     using SrvServoForward = srv::ServoForward;
-
-    // Config type enum
-    enum class ConfigType : uint8_t {
-        SWITCH_SERVO_POWER = 0x10,
-        SWITCH_5V_POWER = 0x11,
-        SWITCH_CHARGE = 0x12,
-        SWITCH_BAT_EXT_OUT = 0x13,
-        CHARGE_STOP_SOC = 0x20,
-        TX_LOG_LEVEL = 0x21,
-        POWER_SERVO_CURRENT_LIMIT_MA = 0x30,
-        POWER_SERVO_TEMP_LIMIT = 0x31,
-        POWER_5V_TEMP_LIMIT = 0x32,
-        CHARGE_MAX_CURRENTMA = 0x33,
-        CHARGE_TEMP_DERATING = 0x34,
-        CHARGE_TEMP_LIMIT = 0x35,
-        CHARGE_STOP_VOLTAGE_MV = 0x36,
-        SERVO_BAUD_RATE = 0x37,
-    };
-
-    // Board command type enum
-    enum class CommandType : uint8_t {
-        RESET = 0x01,
-        SHUTDOWN = 0x02,
-        OTA = 0x03,
-    };
 
 } // namespace servo_robot_board_interface

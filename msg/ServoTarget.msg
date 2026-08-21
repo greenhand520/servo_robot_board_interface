@@ -1,2 +1,2 @@
-# Servo command data (raw bytes to forward to servo bus)
+# 串口舵机的命令数据（转发到串口舵机上的原始字节）
 uint8[] data

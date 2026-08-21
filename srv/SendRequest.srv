@@ -1,0 +1,17 @@
+# 通用请求 — 发送带有原始有效负载的任何 RequestType
+# 用于专用 srv 文件未涵盖的操作，或用于扩展
+#
+# request_type: RequestType enum value (see RequestType.msg)
+# data:         raw payload bytes (depends on request_type):
+#   Reset/Shutdown/Ota/ConfigQueryAll/DeviceInfo → empty
+#   ConfigWrite  → Config.to_bytes()
+#   ConfigQuery  → [config_type:1]
+#   ServoForward → raw servo bytes
+#   FirmwareUpdate → [offset:4][data:N]
+
+uint8 request_type
+uint8[] data
+---
+bool success
+uint8[] data    # response payload (depends on request_type)
+string msg

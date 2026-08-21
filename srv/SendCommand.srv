@@ -1,0 +1,11 @@
+# 向开发板发送一次性命令
+# RequestType values: Reset(0x01), Shutdown(0x02), Ota(0x03)
+
+uint8 CMD_RESET    = 0x01
+uint8 CMD_SHUTDOWN = 0x02
+uint8 CMD_OTA      = 0x03
+
+uint8 request_type    # RequestType value (0x01=Reset, 0x02=Shutdown, 0x03=Ota)
+---
+bool success
+string msg

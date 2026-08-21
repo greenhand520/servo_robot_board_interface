@@ -1,0 +1,11 @@
+# 开关操作 (servo power, 5V, charge, bat ext out)
+uint8 SWITCH_SERVO_POWER = 0x10
+uint8 SWITCH_5V_POWER    = 0x11
+uint8 SWITCH_CHARGE      = 0x12
+uint8 SWITCH_BAT_EXT_OUT = 0x13
+
+uint8 switch_type    # 0x10=ServoPower, 0x11=5VPower, 0x12=Charge, 0x13=BatExtOut
+bool   enable        # true=ON, false=OFF
+---
+bool success
+string msg

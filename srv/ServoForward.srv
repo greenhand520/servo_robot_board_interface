@@ -1,4 +1,4 @@
-# Forward servo command and wait for response
+# 转发串口舵机命令并等待响应
 uint8[] command    # Raw servo command bytes
 ---
 bool success

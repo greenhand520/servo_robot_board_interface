@@ -1,0 +1,6 @@
+# 查询设备身份和内存布局（静态信息）
+# Corresponds to RequestType::DeviceInfo (0x13)
+---
+bool success
+string msg
+servo_robot_board_interface/DeviceInfo info

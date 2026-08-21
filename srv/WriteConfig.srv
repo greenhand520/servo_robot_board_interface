@@ -1,0 +1,6 @@
+# 写入配置
+uint8    config_type    # ConfigType enum value (0x10-0x37，参见 ConfigType.msg)
+float32  value          # New value
+---
+bool success
+string msg
