@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>servo_robot_board_interface</name>
-  <version>0.1.0</version>
+  <version>2.0.0</version>
   <description>ROS2 interface definitions for servo robot board communication</description>
   <maintainer email="ohmdmbct@gmail.com">greenhand520</maintainer>
   <license>GPL-3.0</license>
