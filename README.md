@@ -15,7 +15,7 @@ ROS2 接口定义包，用于上位机与 `ServoRobotBoard` 之间的通信。
 | `Power` | 电源数据（舵机/电池电压、电流） | 20Hz     |
 | `Event` | 事件通知（充电阶段、状态变化、保护、错误） | 触发式   |
 | `Config` | 配置快照 | 事件触发 |
-| `Response` | 统一应答帧（替代旧的 ACK 类型） | 每次请求 |
+| `Response` | 统一应答帧 | 每次请求 |
 | `Log` | 板端日志（级别、文件、函数、消息） | 触发式   |
 | `ServoTarget` | 舵机原始指令字节 | 按需     |
 | `sensor_msgs/Imu` | IMU 数据 | 100Hz    |
@@ -117,6 +117,10 @@ request.config_type = ConfigType.POWER_SERVO_CURRENT_LIMIT_MA
 future = client.call_async(request)
 ```
 
+## 枚举
+
+所有枚举常量（RequestType、ConfigType、ChargePhase、StateChangeFlag、ProtectionFlag、ErrorFlag 等）均在协议中定义: [servo-robot-protocol](https://github.com/servo-robot-520/servo_robot_board_driver/tree/main/crates/servo-robot-protocol)
+
 ## 构建
 
 ```bash
@@ -125,13 +129,6 @@ colcon build --packages-select servo_robot_board_interface
 source install/setup.bash
 ```
 
-## 依赖
-
-- `std_msgs`
-- `builtin_interfaces`
-- `rosidl_default_generators`
-- `rosidl_default_runtime`
-
 ## 许可证
 
-GPL-3.0
+[GPL-3.0](LICENSE)

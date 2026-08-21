@@ -15,7 +15,7 @@ ROS2 interface definition package for communication between host PC and `ServoRo
 | `Power` | Power data (servo/battery voltage, current) | 20Hz            |
 | `Event` | Event notifications (charge phase, state change, protection, errors) | Triggered       |
 | `Config` | Configuration snapshot | Event triggered |
-| `Response` | Unified response frame (replaces old ACK types) | Per request     |
+| `Response` | Unified response frame  | Per request     |
 | `Log` | Board log (level, file, function, message) | Triggered       |
 | `ServoTarget` | Raw servo command bytes | On demand       |
 | `sensor_msgs/Imu` | IMU data | 100Hz           |
@@ -129,13 +129,6 @@ colcon build --packages-select servo_robot_board_interface
 source install/setup.bash
 ```
 
-## Dependencies
-
-- `std_msgs`
-- `builtin_interfaces`
-- `rosidl_default_generators`
-- `rosidl_default_runtime`
-
 ## License
 
-GPL-3.0
+[GPL-3.0](LICENSE)
