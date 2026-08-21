@@ -8,18 +8,18 @@ ROS2 interface definition package for communication between host PC and `ServoRo
 
 ## Messages (Uplink: STM32 → PC)
 
-| Message | Description | Update Rate |
-|---------|-------------|-------------|
-| `DeviceInfo` | Device identity & memory layout (static) | On query |
-| `Diagnostic` | Runtime diagnostics (CPU, heap, temps, error counts) | 1Hz |
-| `Power` | Power data (servo/battery voltage, current) | 20Hz |
-| `Event` | Event notifications (charge phase, state change, protection, errors) | Triggered |
+| Message | Description | Update Rate     |
+|---------|-------------|-----------------|
+| `DeviceInfo` | Device identity & memory layout (static) | On query        |
+| `Diagnostic` | Runtime diagnostics (CPU, heap, temps, error counts) | 1Hz             |
+| `Power` | Power data (servo/battery voltage, current) | 20Hz            |
+| `Event` | Event notifications (charge phase, state change, protection, errors) | Triggered       |
 | `Config` | Configuration snapshot | Event triggered |
-| `Response` | Unified response frame (replaces old ACK types) | Per request |
-| `Log` | Board log (level, file, function, message) | Triggered |
-| `ServoTarget` | Raw servo command bytes | On demand |
-| `sensor_msgs/Imu` | IMU data | — |
-| `sensor_msgs/BatteryState` | Battery state | — |
+| `Response` | Unified response frame (replaces old ACK types) | Per request     |
+| `Log` | Board log (level, file, function, message) | Triggered       |
+| `ServoTarget` | Raw servo command bytes | On demand       |
+| `sensor_msgs/Imu` | IMU data | 100Hz           |
+| `sensor_msgs/BatteryState` | Battery state | 10Hz            |
 
 ## Services & Actions (Downlink: PC → STM32)
 

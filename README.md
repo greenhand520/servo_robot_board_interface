@@ -10,16 +10,16 @@ ROS2 接口定义包，用于上位机与 `ServoRobotBoard` 之间的通信。
 
 | 消息 | 说明 | 更新频率 |
 |------|------|----------|
-| `DeviceInfo` | 设备标识与内存布局（静态） | 查询时 |
-| `Diagnostic` | 运行时诊断（CPU、堆、温度、错误计数） | 1Hz |
-| `Power` | 电源数据（舵机/电池电压、电流） | 20Hz |
-| `Event` | 事件通知（充电阶段、状态变化、保护、错误） | 触发式 |
+| `DeviceInfo` | 设备标识与内存布局（静态） | 查询时   |
+| `Diagnostic` | 运行时诊断（CPU、堆、温度、错误计数） | 1Hz      |
+| `Power` | 电源数据（舵机/电池电压、电流） | 20Hz     |
+| `Event` | 事件通知（充电阶段、状态变化、保护、错误） | 触发式   |
 | `Config` | 配置快照 | 事件触发 |
 | `Response` | 统一应答帧（替代旧的 ACK 类型） | 每次请求 |
-| `Log` | 板端日志（级别、文件、函数、消息） | 触发式 |
-| `ServoTarget` | 舵机原始指令字节 | 按需 |
-| `sensor_msgs/Imu` | IMU 数据 | — |
-| `sensor_msgs/BatteryState` | 电池状态 | — |
+| `Log` | 板端日志（级别、文件、函数、消息） | 触发式   |
+| `ServoTarget` | 舵机原始指令字节 | 按需     |
+| `sensor_msgs/Imu` | IMU 数据 | 100Hz    |
+| `sensor_msgs/BatteryState` | 电池状态 | 10Hz     |
 
 ## 服务与动作（下行：PC → STM32）
 
